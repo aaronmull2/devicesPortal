@@ -1,0 +1,33 @@
+/* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+       #map {
+        height: 600px;
+      }
+
+      ul.no-bullets {
+        list-style-type: none; /* Remove bullets */
+        padding: 0; /* Remove padding */
+        margin: 0; /* Remove margins */
+        margin-left: 10px;
+      }
+
+      li.status-list {
+        margin-bottom: 3px;
+      }
+
+      p.status-list {
+        margin-bottom: 3px;
+      }      
+
+      .dot {
+        height: 10px;
+        width: 10px;
+        /*background-color: #000;*/
+        border-radius: 50%;
+        display: inline-block;
+      }
+
+      .tbl-index {
+        padding: 6px !important;
+      }
+    

@@ -8,13 +8,15 @@
         <th>ID</th>
         <th>Name</th>
         <th>Site</th>
+        <th>Assigned To</th>
         <th>Action</th>
     </tr>
-    @foreach ($alerts as $alert)
+    @forelse ($alerts as $alert)
     <tr>
         <td class="tbl-index">{{ $alert->id }}</td>
         <td class="tbl-index">{{ $alert->title }}</td>
         <td class="tbl-index">{{ $alert->device->site->name }}</td>
+        <td class="tbl-index">{{ $alert->user->name }}</td>
         <div class="btn-group form-inline pull-left">
             <td class="tbl-index">
                 <a href="/alerts/{{ $alert->id }}" class="btn btn-secondary btn-sm" type="submit">View</a>
@@ -24,6 +26,10 @@
             </td>
         </div>
     </tr>
-    @endforeach
+    @empty
+    </table>
+
+    <div class="h5 mx-2 text-center"> You have no active Alerts...</div>
+    @endforelse
 </table>
 @endsection

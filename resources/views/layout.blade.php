@@ -51,22 +51,18 @@
                     <span>Dashboard</span></a>
             </li>
 
+            @if(Auth::user()->role->title != "basic")
+
             <!-- Divider -->
             <hr class="sidebar-divider">
 
             <!-- Nav Item - Pages Collapse Menu -->
+
+            <!-- Nav Item - Users -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUser"
-                    aria-expanded="true" aria-controls="collapseUser">
-                    <i class="fas fa-fw fa-user"></i>
-                    <span> Users</span>
-                </a>
-                <div id="collapseUser" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="/users">Table</a>
-                        <a class="collapse-item" href="/users/create">Create</a>
-                    </div>
-                </div>
+                <a class="nav-link" href="/users">
+                <i class="fas fa-fw fa-user"></i>
+                <span>Users</span></a>
             </li>
 
             <li class="nav-item">
@@ -77,9 +73,25 @@
                 </a>
                 <div id="collapseAlert" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="/alerts/map">Map</a>
                         <a class="collapse-item" href="/alerts">Table</a>
                         <a class="collapse-item" href="/alerts/create">Create</a>
-                        <a class="collapse-item" href="/alerts/map">Map</a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseDevice"
+                    aria-expanded="true" aria-controls="collapseDevice">
+                    <i class="fas fa-fw fa-hdd"></i>
+                    <span>Devices</span>
+                </a>
+                <div id="collapseDevice" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="/devices">Table</a>
+                        @if(Auth::user()->role->title == "super" || Auth::user()->role->title == "admin")
+                        <a class="collapse-item" href="/devices/create">Create</a>
+                        @endif
                     </div>
                 </div>
             </li>
@@ -87,53 +99,53 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSite"
                     aria-expanded="true" aria-controls="collapseSite">
-                    <i class="fas fa-fw fa-map-marked-alt"></i>
-                    <span> Sites</span>
+                    <i class="fas fa-fw fa-parking"></i>
+                    <span>Sites</span>
                 </a>
                 <div id="collapseSite" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="/sites">Table</a>
-                        <a class="collapse-item" href="/sites/create">Create</a>
                         <a class="collapse-item" href="/sites/map">Map</a>
+                        <a class="collapse-item" href="/sites">Table</a>
+                        @if(Auth::user()->role->title == "super" || Auth::user()->role->title == "admin")
+                        <a class="collapse-item" href="/sites/create">Create</a>
+                        @endif
                     </div>
                 </div>
             </li>
 
-
-            <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                    aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Pages</span>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLocation"
+                    aria-expanded="true" aria-controls="collapseLocation">
+                    <i class="fas fa-fw fa-location-arrow"></i>
+                    <span>Locations</span>
                 </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div id="collapseLocation" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="login.html">Login</a>
-                        <a class="collapse-item" href="register.html">Register</a>
-                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Other Pages:</h6>
-                        <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item" href="blank.html">Blank Page</a>
+                        <a class="collapse-item" href="/locations">Table</a>
+                        @if(Auth::user()->role->title == "super" || Auth::user()->role->title == "admin")
+                        <a class="collapse-item" href="/locations/create">Create</a>
+                        @endif
                     </div>
                 </div>
             </li>
 
-            <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="charts.html">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Charts</span></a>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCompanies"
+                    aria-expanded="true" aria-controls="collapseCompanies">
+                    <i class="fas fa-fw fa-user-tie"></i>
+                    <span>Companies</span>
+                </a>
+                <div id="collapseCompanies" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="/companies">Table</a>
+                        @if(Auth::user()->role->title == "super" || Auth::user()->role->title == "admin")
+                        <a class="collapse-item" href="/companies/create">Create</a>
+                        @endif
+                    </div>
+                </div>
             </li>
 
-            <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link" href="tables.html">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
-            </li>
+            @endif
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -229,12 +241,16 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
+                                @if(Auth::user()->role->title != "basic")
+
                                 <a class="dropdown-item" href="/users/{{ Auth::user()->id }}">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="/logout" data-toggle="modal" data-target="#logoutModal">
+                                @endif
+
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
@@ -295,7 +311,12 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <div class="col-sm-10">
+                                <button class="btn btn-primary" type="submit">Logout</button>
+                            </div>                   
+                    </form>
                 </div>
             </div>
         </div>

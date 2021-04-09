@@ -30,4 +30,8 @@
       .tbl-index {
         padding: 6px !important;
       }
+
+      .card-body {
+        padding:15px !important;
+      }
     

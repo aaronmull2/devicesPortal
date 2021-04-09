@@ -15,52 +15,31 @@ var infoWindow = {};
 var infoWindows = [];
 let oms;
 
-function markerData(alert) {
+function markerData(engineer) {
     return new google.maps.Marker({
-        position: { lat:alert.device.site.location.lat, lng:alert.device.site.location.lng },
+        position: { lat:engineer.lat, lng:engineer.lng },
         map,
-        title: alert.title,
+        title: engineer.user.name,
     });
 }
 
-function contentData(alert) {
-  var aStatusCss = {1:"#7FFF00",2:"#FFA500",3:"#FF0000",4:"#B3B3B3"};
-  var dStatusCss = {1:"#7FFF00",2:"#FFA500",3:"#FF0000"};
-  var aStatusName = {1:"In Progress",2:"Paused",3:"Backlog",4:"On Hold"};
-  var dStatusName = {1:"Working",2:"Working With Issue",3:"Not Working"};
+function contentData(engineer) {
 
   return     "<div id='siteContent'>" +
     "<div id='siteNotice'>" +
-    "<h6 id='siteHeading' class='siteHeading'><a href='/alerts/" + alert.id + "'>" + alert.title + "</a></h6>" +
+    "<h6 id='siteHeading' class='siteHeading'><a href='/users/" + engineer.user.id + "'>" + engineer.user.name + "</a></h6>" +
     "<div id='siteContent'>" +
     "<table>" +
     "<tr>" +
-    "<td><strong>Site:</strong></td>" +
-    "<td><a href=/sites/" + alert.device.site.id + "'>" + alert.device.site.name + "</a></td>" +
+    "<td><strong>Co-ordinates;</strong></td>" +
     "</tr>" +
     "<tr>" +
-    "<td><strong>Alert Status:</strong></td>" +
-    "<td><span class='dot' style='background-color:" + aStatusCss[alert.alert_status_id] + " !important;'></span>&nbsp;-&nbsp;" + aStatusName[alert.alert_status_id] + "</td>" +
+    "<td><strong>Latitude:</strong></td>" +
+    "<td>"+ engineer.lat +"</td>" +
     "</tr>" +
     "<tr>" +
-    "<td><strong>Assigned To:</strong></td>" +
-    "<td><a href='/users/" + alert.user.id + "'>" + alert.user.name + "</a></td>" +
-    "</tr>" +
-    "<tr>" +
-    "<td><strong>Message:</strong></td>" +
-    "<td>" + alert.message + "</td>" +
-    "</tr>" +
-    "<tr>" +
-    "<td><strong>Device:</strong></td>" +
-    "<td>" + alert.device.name + "</td>" +
-    "</tr>" +
-    "<tr>" +
-    "<td><strong>Device Status:&nbsp;</strong></td>" +
-    "<td><span class='dot' style='background-color:" + dStatusCss[alert.device.device_status_id] + " !important;'></span>&nbsp;-&nbsp;" + dStatusName[alert.device.device_status_id] + "</td>" +
-    "</tr>" +
-    "<tr>" +
-    "<td><strong>Priority:</strong></td>" +
-    "<td>" + alert.priority + "</td>" +
+    "<td><strong>Longitude:</strong></td>" +
+    "<td>"+ engineer.lng +"</td>" +
     "</tr>" +
     "</table>" +
     "</div>" +
@@ -91,12 +70,13 @@ function initMap() {
     basicFormatEvents: true
   });
 
-  var alerts = @json($alerts);
+  var engineers = @json($engineers);
+  console.log(engineers);
 
-  for(var i = 0; i < alerts.length; i++) {
+  for(var i = 0; i < engineers.length; i++) {
 
-    marker[i] = markerData(alerts[i]);
-    content[i] = contentData(alerts[i]);
+    marker[i] = markerData(engineers[i]);
+    content[i] = contentData(engineers[i]);
     infoWindow[i] = new google.maps.InfoWindow();
 
     markers.push(marker[i]); 
@@ -111,7 +91,7 @@ function initMap() {
 
 @endsection
 
-@section('header') Alerts Map @endsection
+@section('header') Engineers Locations @endsection
 
 @section ('content')
     <div id="map"></div>
@@ -126,15 +106,15 @@ function initMap() {
     ></script>
 <script>
 setInterval(function() {
-  $.get( "/alerts/map/data", function( data ) {
+  $.get( "/users/map/data", function( data ) {
     for (const element of markers) {
         element.setMap(null);
         oms.removeAllMarkers();
     }
-    for (const alert of data) {
-      var m = markerData(alert);
-      m.setMap(map);
-      var c = contentData(alert);
+    for (const engineer of data) {
+      var m = markerData(engineer);
+      m.setMap(engineer);
+      var c = contentData(engineer);
       infoWindow = new google.maps.InfoWindow();
       addListener(m,c,infoWindow);
       oms.addMarker(m);

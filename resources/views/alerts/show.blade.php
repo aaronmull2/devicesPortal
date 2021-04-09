@@ -46,6 +46,10 @@
         </div>
     </div>
     <div class="btn-toolbar">
+        <form method="GET" action="/alerts/{{ $alert->id }}/comments">
+            @csrf
+            <button class="btn btn-secondary mx-2" type="submit">Comments</button>
+        </form>
         <form method="POST" action="/alerts/{{ $alert->id }}/complete">
             @csrf
             @method('PUT')
